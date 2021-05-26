@@ -45,7 +45,7 @@ pipeline {
         
         }
         stage ('Docker Publish') {
-           steps {
+            steps {
                 script {
                     if (env.BRANCH_NAME == 'dev') {
                         withDockerRegistry([ credentialsId: "DOCKERHUB", url: "" ]) {
@@ -63,7 +63,7 @@ pipeline {
                         }
                     }
                 }               
-           }
+            }
         
         }
     
