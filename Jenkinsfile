@@ -10,7 +10,7 @@ pipeline {
         buildDiscarder(logRotator(numToKeepStr: '5'))
     }
     triggers {
-        cron(env.BRANCH_NAME == 'dev' ? '*/5 * * * *' : env.BRANCH_NAME == 'test' ? '*/10 * * * *' : env.BRANCH_NAME == 'prod' ? '*/15 * * * *' : '')
+        cron(env.BRANCH_NAME == 'dev' ? '0 * * * *' : env.BRANCH_NAME == 'test' ? '0 * * * *' : env.BRANCH_NAME == 'prod' ? '0 * * * *' : '')
     }
     stages {
         stage ('Checkout') {
