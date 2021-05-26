@@ -66,6 +66,14 @@ pipeline {
             }
         
         }
+        stage ('Cleanup') {
+            steps {
+                script {
+                   bat "docker rmi ${env.DOCKER_REPO_PROD}:${env.BUILD_NUMBER} --force" 
+                }               
+            }
+        
+        }
     
     }
 }
