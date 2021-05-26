@@ -32,13 +32,13 @@ pipeline {
             steps {
                 script {
                     if (env.BRANCH_NAME == 'dev') {
-                        bat "docker build -file Dockerfile -t ${env.DOCKER_REPO_DEV}:${env.BUILD_NUMBER} ."
+                        bat "docker build --file Dockerfile -t ${env.DOCKER_REPO_DEV}:${env.BUILD_NUMBER} ."
                     }
                     if (env.BRANCH_NAME == 'test') {
-                        bat "docker build -file Dockerfile -t ${env.DOCKER_REPO_TEST}:${env.BUILD_NUMBER} ."
+                        bat "docker build --file Dockerfile -t ${env.DOCKER_REPO_TEST}:${env.BUILD_NUMBER} ."
                     }
                     if (env.BRANCH_NAME == 'prod') {
-                        bat "docker build -file Dockerfile -t ${env.DOCKER_REPO_PROD}:${env.BUILD_NUMBER} ."
+                        bat "docker build --file Dockerfile -t ${env.DOCKER_REPO_PROD}:${env.BUILD_NUMBER} ."
                     }
                 }                
             }
