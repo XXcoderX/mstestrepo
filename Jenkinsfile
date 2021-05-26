@@ -32,13 +32,13 @@ pipeline {
             steps {
                 script {
                     if (env.BRANCH_NAME == 'dev') {
-                        bat 'docker build -file Dockerfile -t ${DOCKER_REPO_DEV}:${BUILD_NUMBER} .'
+                        bat 'docker build -file Dockerfile -t ${env.DOCKER_REPO_DEV}:${env.BUILD_NUMBER} .'
                     }
                     if (env.BRANCH_NAME == 'test') {
-                        bat 'docker build -file Dockerfile -t ${DOCKER_REPO_TEST}:${BUILD_NUMBER} .'
+                        bat 'docker build -file Dockerfile -t ${env.DOCKER_REPO_TEST}:${env.BUILD_NUMBER} .'
                     }
                     if (env.BRANCH_NAME == 'prod') {
-                        bat 'docker build -file Dockerfile -t ${DOCKER_REPO_PROD}:${BUILD_NUMBER} .'
+                        bat 'docker build -file Dockerfile -t ${env.DOCKER_REPO_PROD}:${env.BUILD_NUMBER} .'
                     }
                 }                
             }
@@ -49,17 +49,17 @@ pipeline {
                 script {
                     if (env.BRANCH_NAME == 'dev') {
                         withDockerRegistry([ credentialsId: "DOCKERHUB", url: "" ]) {
-                           bat 'docker push ${DOCKER_REPO_DEV}:${BUILD_NUMBER}'
+                           bat 'docker push ${env.DOCKER_REPO_DEV}:${env.BUILD_NUMBER}'
                         }
                     }
                     if (env.BRANCH_NAME == 'test') {
                         withDockerRegistry([ credentialsId: "DOCKERHUB", url: "" ]) {
-                           bat 'docker push ${DOCKER_REPO_TEST}:${BUILD_NUMBER}'
+                           bat 'docker push ${env.DOCKER_REPO_TEST}:${env.BUILD_NUMBER}'
                         }
                     }
                     if (env.BRANCH_NAME == 'prod') {
                         withDockerRegistry([ credentialsId: "DOCKERHUB", url: "" ]) {
-                           bat 'docker push ${DOCKER_REPO_PROD}:${BUILD_NUMBER}'
+                           bat 'docker push ${env.DOCKER_REPO_PROD}:${env.BUILD_NUMBER}'
                         }
                     }
                 }               
