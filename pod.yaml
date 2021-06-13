@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: mstest
-          image: ${IMAGE_NAME_KUBERNETES}
+          image: xcoderx09/mstest-dev:latest
           ports:
             - containerPort: 8082
           env:

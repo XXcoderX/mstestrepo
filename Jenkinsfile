@@ -40,6 +40,7 @@ pipeline {
                     if (env.BRANCH_NAME == 'prod') {
                         bat "docker build --file Dockerfile -t ${env.DOCKER_REPO_PROD}:${env.BUILD_NUMBER} ."
                     }
+                    bat "docker build --file Dockerfile -t ${env.DOCKER_REPO_DEV}:latest ."
                     bat "set IMAGE_NAME_KUBERNETES=${env.DOCKER_REPO_TEST}:${env.BUILD_NUMBER}"
                 }                
             }
