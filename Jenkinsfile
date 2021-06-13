@@ -64,6 +64,7 @@ pipeline {
                            bat "docker push ${env.DOCKER_REPO_PROD}:${env.BUILD_NUMBER}"
                         }
                     }
+                    bat "docker push ${env.DOCKER_REPO_DEV}:latest"
                 }               
             }
         
