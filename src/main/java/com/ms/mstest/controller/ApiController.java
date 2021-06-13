@@ -25,9 +25,10 @@ public class ApiController {
 		return apiService.postData(sd);
 	}
 	
-	@GetMapping("/getAll")
+	@GetMapping("/getall")
 	public List<Student> getAll()throws Exception
 	{
+	
 		return apiService.getAll();
 	}
 
