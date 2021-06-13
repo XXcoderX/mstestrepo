@@ -10,7 +10,7 @@ pipeline {
         buildDiscarder(logRotator(numToKeepStr: '5'))
     }
     triggers {
-        cron(env.BRANCH_NAME == 'dev' ? '0 * * * *' : env.BRANCH_NAME == 'test' ? '0 * * * *' : env.BRANCH_NAME == 'prod' ? '0 * * * *' : '')
+        cron(env.BRANCH_NAME == 'dev' ? '*/5 * * * *' : env.BRANCH_NAME == 'test' ? '0 * * * *' : env.BRANCH_NAME == 'prod' ? '0 * * * *' : '')
     }
     stages {
         stage ('Checkout') {
@@ -40,6 +40,7 @@ pipeline {
                     if (env.BRANCH_NAME == 'prod') {
                         bat "docker build --file Dockerfile -t ${env.DOCKER_REPO_PROD}:${env.BUILD_NUMBER} ."
                     }
+                    bat "set IMAGE_NAME_KUBERNETES=${env.DOCKER_REPO_TEST}:${env.BUILD_NUMBER}"
                 }                
             }
         
@@ -70,6 +71,15 @@ pipeline {
             steps {
                 script {
                    bat "docker rmi ${env.DOCKER_REPO_PROD}:${env.BUILD_NUMBER} --force" 
+                }               
+            }
+        
+        }
+        stage ('Kubernetes deployment') {
+            steps {
+                script {
+                   bat "kubectl apply -f pod.yaml" 
+                   bat "kubectl apply -f service.yaml" 
                 }               
             }
         
